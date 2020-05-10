@@ -1,6 +1,6 @@
 # Duel Links Simple Auto Farming System
 
-This is just a simple project that shows you how to automate farming in Duel Links using python3. This tutorial is made on Windows operating system because Duel Links only support Steam on Windows right now.
+This is just a simple project that shows you how to automate farming in Duel Links using Python3. This tutorial is made on Windows operating system because Duel Links only support Steam on Windows right now.
 
 This project based on **python-imagesearch** and **pyautogui** to search matched image on the screen and then trigger an automatic click on GUI element such as button or click on fixed location of pointer.
 https://github.com/drov0/python-imagesearch

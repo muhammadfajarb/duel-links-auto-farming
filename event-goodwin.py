@@ -1,7 +1,7 @@
 from imagesearch import *
 import pyautogui as pa
 
-folder = "./duel-links/event-goodwin/"
+folder = "./image/event-goodwin/"
 
 elements = ['ok', 'next']
 total_duel = 300

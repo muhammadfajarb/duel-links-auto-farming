@@ -151,6 +151,18 @@ def imagesearch_loop(image, timesample, precision=0.8):
             print("OK")
     return pos
 
+def imagesearch_loop_timeout(image, timesample, timeout, precision=0.8):
+    print("Finding " + image + " ... ", end="", flush=True)
+    pos = imagesearch(image, precision)
+    time_counter = 0
+    while (pos[0] == -1) and (time_counter < timeout):
+        time_counter += 1
+        time.sleep(timesample)
+        pos = imagesearch(image, precision)
+        if pos[0] > -1:
+            print("OK")
+    return pos
+
 # def imagesearch_loop(image, timesample, precision=0.8):
 #     print("Finding " + image + " ... ")
 #     pos = imagesearch(image, precision)

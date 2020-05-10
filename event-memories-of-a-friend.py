@@ -2,14 +2,15 @@ from imagesearch import *
 import pyautogui as pa
 
 folder = "./image/"
+# character = "yugi"
 character = "yami_yugi"
 
-total_duel = 20
+total_duel = 30
 
 for i in range(total_duel):
 
     # Find gate button
-    pos = imagesearch_loop(folder+"gate.png", 1)
+    pos = imagesearch_loop(folder+"gate.png", 0.5)
     print("Gate button found : ", pos[0], pos[1])
 
     # Click gate button
@@ -86,7 +87,7 @@ for i in range(total_duel):
         if pos[0] > -1:
             timeout = 1.0
         else:
-            timeout = 15
+            timeout = 20
             
         pos = imagesearch_loop_timeout(folder+"draw_phase.png", 0.1, timeout)
         if (pos[0] > -1):
@@ -290,11 +291,44 @@ for i in range(total_duel):
         click_image(folder+"next.png", pos, "left", 0.5)
     print("Next button clicked")
 
+
+    # # Mission circuit
+
+    # # Click
+    # for i in range(5):
+    #     pa.click(x=960, y=119)
+    #     time.sleep(0.1)
+    
+    # time.sleep(5)
+    
+    # # Wait ok button
+    # search = True
+    # while search:
+    #     pos = imagesearch(folder+"ok.png")
+    #     if pos[0] != -1:
+    #         search = False
+    #     for i in range(3):
+    #         # pa.click(x=960, y=832)
+    #         pa.click(x=960, y=119)
+    #         time.sleep(0.1)
+    #     time.sleep(0.3)
+    # print("Ok button found")
+
+    # # Click ok button
+    # if pos[0] != -1:
+    #     click_image(folder+"ok.png", pos, "left", 0.5)
+    # print("Ok button clicked")
+
+    # # Click Ok button
+    # for i in range(5):
+    #     pa.click(x=960, y=119)
+    #     time.sleep(0.1)
+
     # Find character
     pos = imagesearch_loop(folder+"char_"+character+".png", 0.5)
     print("Character found : ", pos[0], pos[1])
 
     # Click character
     if pos[0] != -1:
-        click_image(folder+"char_"+character+".png", pos, "left", 2)
+        click_image(folder+"char_"+character+".png", pos, "left", 1.5)
     print("Character clicked")
