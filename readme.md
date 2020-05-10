@@ -19,6 +19,8 @@ For more details about virtual environment, you can read here : https://timmyrei
 ## Installing Package
 `pip install -r requirements.txt`
 
-In this project, I will show you how to make a simple farming on "Legendary Duelist at the gate" and how to farming in event especially "Dark Signer Rex Goodwin unlocked event" (event when the tutorial is made)
+In this project, I will show you how to make a simple farming on "Legendary Duelist at the gate" and how to farming in event especially "Dark Signer Rex Goodwin unlocked event" (event when the tutorial is made).
 
-<!-- Here is a demo video : -->
+Here is the video on Youtube:
+<br><br>
+[![Alt text](https://img.youtube.com/vi/gQiVC0dafUg/0.jpg)](https://www.youtube.com/watch?v=gQiVC0dafUg)
