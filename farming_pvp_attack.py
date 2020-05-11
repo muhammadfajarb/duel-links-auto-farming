@@ -7,7 +7,13 @@ duel_counter = 0
 while True:
 
     # Find duel button #1
-    pos = imagesearch_loop(folder+"duel_pvp.png", 0.3)
+    pos = imagesearch(folder+"duel_pvp.png")
+    if pos[0] == -1:
+        pos = imagesearch(folder+"ok.png")
+        if pos[0] > -1:
+            click_image(folder+"ok.png", pos, "left", 0.5)
+        continue
+
     # print("Duel button found : ", pos[0], pos[1])
 
     # Click duel button #1
@@ -32,6 +38,8 @@ while True:
     monster_exist = False
 
     while True:
+        # Show action button periodically
+        pa.click(x=620, y=820)
         # Speed up draw phase
         pos = imagesearch(folder+"draw_phase.png")
         if pos[0] > -1:
@@ -117,13 +125,14 @@ while True:
                         max_counter -= 1
                         monster_exist = True
                         # Confirm to special summon monster
-                        pos = imagesearch_loop_timeout(folder+"confirm_enabled.png", 0.1, 10.0)
+                        pos = imagesearch_loop_timeout(folder+"confirm_ss_disabled.png", 0.1, 5.0)
                         if pos[0] > -1:
                             # Click card to activate
-                            pa.click(x=835, y=556) 
-                            pos = imagesearch(folder+"confirm_enabled.png")
+                            time.sleep(1)
+                            pa.click(x=836, y=559)
+                            pos = imagesearch_loop_timeout(folder+"confirm_ss_enabled.png", 0.1, 5.0)
                             if pos[0] > -1:
-                                click_image(folder+"confirm_enabled.png", pos, "left", 0.1)
+                                click_image(folder+"confirm_ss_enabled.png", pos, "left", 0.1)
                     
                     pos = imagesearch(folder+"normal_summon.png")
                     # pos = imagesearch_loop_timeout(folder+"normal_summon.png", 0.1, 1)
@@ -165,14 +174,13 @@ while True:
                             pa.click(x=620, y=820)
                             imagesearch_loop(folder+"action.png", 0.1)
                             counter = 0
-                            # max_counter -= 1
+                            max_counter -= 1
                     
                     if equip_counter > 0 and monster_exist:
                         recheck = True
-                        equip_counter = 0
+                        # equip_counter = 0
 
                     new_pos += 55
-                    counter += 1
         
                     if counter >= max_counter:
                         main_phase_status = False
@@ -180,28 +188,31 @@ while True:
                             battle_phase_status = True
                             
                         pa.click(x=620, y=820)
+
                         if recheck:
                             recheck = False
                             pos_x = init_x
                             new_pos = 100
                             counter = 0
+
+                            equip_counter = 0
                         else:
                             break
                     
+                    counter += 1
                     time.sleep(1)
             
 
         if battle_phase_status:
-            battle_phase_status = False
             # Find and click action button
-            pos = imagesearch_loop_timeout(folder+"action.png", 0.1, 180.0)
+            pos = imagesearch_loop_timeout(folder+"action.png", 0.1, 5.0)
             # print("Action button found : ", pos[0], pos[1])
             # Click action button
             if pos[0] > -1:
                 click_image(folder+"action.png", pos, "left", 0.1)
                 # print("Action button clicked")
                 # Find Battle button
-                pos = imagesearch_loop_timeout(folder+"battle_phase.png", 0.1, 2.0)
+                pos = imagesearch_loop_timeout(folder+"battle_phase.png", 0.1, 5.0)
                 # print("Battle button found : ", pos[0], pos[1])
                 # Click Battle button
                 if pos[0] > -1:
@@ -235,8 +246,8 @@ while True:
                     if pos[0] > -1:
                         click_image(folder+"end_phase.png", pos, "left", 0.1)
                         # print("End phase button clicked")
-            
-                    # main_phase_status = True
+
+                battle_phase_status = False
 
         if not main_phase_status and not battle_phase_status:
             # main_phase_status = True
