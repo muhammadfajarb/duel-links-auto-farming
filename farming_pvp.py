@@ -39,6 +39,15 @@ while True:
             pos = imagesearch(folder+"activate_enabled.png")
             if pos[0] > -1:
                 click_image(folder+"activate_enabled.png", pos, "left", 0.1)
+        
+        # Find if any card to confirm
+        pos = imagesearch(folder+"confirm_disabled.png")
+        if pos[0] > -1:
+            # Click card to confirm
+            pa.click(x=667, y=793) 
+            pos = imagesearch(folder+"confirm_enabled.png")
+            if pos[0] > -1:
+                click_image(folder+"confirm_enabled.png", pos, "left", 0.1)
 
         # Activate cards
         while True:

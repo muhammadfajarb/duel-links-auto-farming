@@ -2,24 +2,46 @@ from imagesearch import *
 import pyautogui as pa
 
 folder = "./image/"
+character = "yami_yugi"
 duel_counter = 0
 
 while True:
 
-    # Find duel button #1
-    pos = imagesearch(folder+"duel_pvp.png")
-    if pos[0] == -1:
-        pos = imagesearch(folder+"ok.png")
-        if pos[0] > -1:
-            click_image(folder+"ok.png", pos, "left", 0.5)
-        continue
+    # Find gate button
+    pos = imagesearch_loop(folder+"gate.png", 1)
+    print("Gate button found : ", pos[0], pos[1])
 
-    # print("Duel button found : ", pos[0], pos[1])
+    # Click gate button
+    if pos[0] != -1:
+        click_image(folder+"gate.png", pos, "left", 2)
+    print("Gate button clicked")
+
+    # Find duel button #1
+    pos = imagesearch_loop(folder+"duel.png", 0.3)
+    print("Duel button found : ", pos[0], pos[1])
 
     # Click duel button #1
     if pos[0] != -1:
-        click_image(folder+"duel_pvp.png", pos, "left", 0.5)
-    # print("Duel button clicked")
+        click_image(folder+"duel.png", pos, "left", 0.5)
+    print("Duel button clicked")
+
+    # Find character (Example : Aster Phoenix)
+    pos = imagesearch_loop(folder+"char_"+character+".png", 0.3)
+    print("Character found : ", pos[0], pos[1])
+
+    # Click character
+    if pos[0] != -1:
+        click_image(folder+"char_"+character+".png", pos, "left", 2)
+    print("Character clicked")
+
+    # Find duel button #2
+    pos = imagesearch_loop(folder+"duel.png", 0.3)
+    print("Duel button found : ", pos[0], pos[1])
+
+    # Click duel button #2
+    if pos[0] != -1:
+        click_image(folder+"duel.png", pos, "left", 0.5)
+    print("Duel button clicked")
 
     pos = imagesearch_loop_timeout(folder+"menu.png", 0.1, 120.0)
     if pos[0] > -1:
@@ -117,22 +139,22 @@ while True:
                     pa.click(x=pos_x + new_pos, y=init_y)
                     time.sleep(1)
 
-                    # pos = imagesearch(folder+"special_summon.png")
-                    # # pos = imagesearch_loop_timeout(folder+"special_summon.png", 0.1, 1)
-                    # if (pos[0] > -1):
-                    #     click_image(folder+"special_summon.png", pos, "left", 0.1)
-                    #     counter = 0
-                    #     max_counter -= 1
-                    #     monster_exist = True
-                    #     # Confirm to special summon monster
-                    #     pos = imagesearch_loop_timeout(folder+"confirm_ss_disabled.png", 0.1, 5.0)
-                    #     if pos[0] > -1:
-                    #         # Click card to activate
-                    #         time.sleep(1)
-                    #         pa.click(x=836, y=559)
-                    #         pos = imagesearch_loop_timeout(folder+"confirm_ss_enabled.png", 0.1, 5.0)
-                    #         if pos[0] > -1:
-                    #             click_image(folder+"confirm_ss_enabled.png", pos, "left", 0.1)
+                    pos = imagesearch(folder+"special_summon.png")
+                    # pos = imagesearch_loop_timeout(folder+"special_summon.png", 0.1, 1)
+                    if (pos[0] > -1):
+                        click_image(folder+"special_summon.png", pos, "left", 0.1)
+                        counter = 0
+                        max_counter -= 1
+                        monster_exist = True
+                        # Confirm to special summon monster
+                        pos = imagesearch_loop_timeout(folder+"confirm_ss_disabled.png", 0.1, 5.0)
+                        if pos[0] > -1:
+                            # Click card to activate
+                            time.sleep(1)
+                            pa.click(x=836, y=559)
+                            pos = imagesearch_loop_timeout(folder+"confirm_ss_enabled.png", 0.1, 5.0)
+                            if pos[0] > -1:
+                                click_image(folder+"confirm_ss_enabled.png", pos, "left", 0.1)
                     
                     pos = imagesearch(folder+"normal_summon.png")
                     # pos = imagesearch_loop_timeout(folder+"normal_summon.png", 0.1, 1)
