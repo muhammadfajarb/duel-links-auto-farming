@@ -31,6 +31,33 @@ while True:
 
     while search:
 
+        # Special summon Lava Golem
+        pos = imagesearch(folder+"special_summon.png")
+        # pos = imagesearch_loop_timeout(folder+"special_summon.png", 0.1, 1)
+        if (pos[0] > -1):
+            click_image(folder+"special_summon.png", pos, "left", 0.1)
+            counter = 0
+            max_counter -= 1
+            monster_exist = True
+            # Confirm to special summon monster
+            pos = imagesearch_loop_timeout(folder+"confirm_ss_disabled.png", 0.1, 5.0)
+            if pos[0] > -1:
+                # Click card to activate
+                time.sleep(1)
+                pa.click(x=836, y=559)
+                pos = imagesearch_loop_timeout(folder+"confirm_ss_enabled.png", 0.1, 5.0)
+                if pos[0] > -1:
+                    click_image(folder+"confirm_ss_enabled.png", pos, "left", 0.1)
+        
+        # Dialog box
+        pos = imagesearch_loop_timeout(folder+"yes.png", 0.1, 1.0)
+        if pos[0] > -1:
+            # Click to confirm
+            pa.click(x=667, y=793) 
+            pos = imagesearch(folder+"yes.png")
+            if pos[0] > -1:
+                click_image(folder+"yes.png", pos, "left", 0.1)
+
         # Find if any card to activate
         pos = imagesearch(folder+"activate_disabled.png")
         if pos[0] > -1:
@@ -62,27 +89,45 @@ while True:
                     if (pos2[0] > -1):
                         click_image(folder+"set.png", pos2, "left", 0.1)
                     else:
+                        pa.click(x=611, y=819)
+                        time.sleep(0.5)
+                        # Find and click action button
+                        pos = imagesearch(folder+"action.png", 0.9)
+                        print("Action button found : ", pos[0], pos[1])
+                        # Click action button
+                        if pos[0] > -1:
+                            click_image(folder+"action.png", pos, "left", 0.1)
+                            print("Action button clicked")
+
+                            # Find end phase button
+                            pos = imagesearch_loop_timeout(folder+"end_phase.png", 0.1, 2)
+                            print("End phase button found : ", pos[0], pos[1])
+
+                            # Click end phase button
+                            if pos[0] > -1:
+                                click_image(folder+"end_phase.png", pos, "left", 0.1)
+                            print("End phase button clicked")
                         break
             else:
                 pa.click(x=611, y=819)
                 break
                 
-        # Find and click action button
-        pos = imagesearch(folder+"action.png", 0.9)
-        print("Action button found : ", pos[0], pos[1])
-        # Click action button
-        if pos[0] > -1:
-            click_image(folder+"action.png", pos, "left", 0.1)
-            print("Action button clicked")
+        # # Find and click action button
+        # pos = imagesearch(folder+"action.png", 0.9)
+        # print("Action button found : ", pos[0], pos[1])
+        # # Click action button
+        # if pos[0] > -1:
+        #     click_image(folder+"action.png", pos, "left", 0.1)
+        #     print("Action button clicked")
 
-            # Find end phase button
-            pos = imagesearch_loop_timeout(folder+"end_phase.png", 0.1, 2)
-            print("End phase button found : ", pos[0], pos[1])
+        #     # Find end phase button
+        #     pos = imagesearch_loop_timeout(folder+"end_phase.png", 0.1, 2)
+        #     print("End phase button found : ", pos[0], pos[1])
 
-            # Click end phase button
-            if pos[0] > -1:
-                click_image(folder+"end_phase.png", pos, "left", 0.1)
-            print("End phase button clicked")
+        #     # Click end phase button
+        #     if pos[0] > -1:
+        #         click_image(folder+"end_phase.png", pos, "left", 0.1)
+        #     print("End phase button clicked")
         
         # for i in range(7):
         #     pa.click(x=964, y=549)
